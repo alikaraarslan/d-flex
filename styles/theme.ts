@@ -1,6 +1,6 @@
 import { lighten } from 'polished';
 
-const defaultColor = '#121212';
+const defaultColor = '#16213E';
 
 const theme = {
   breakpoints: ['700px'],
