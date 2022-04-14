@@ -9,9 +9,13 @@ const HomeWrapper = styled.div`
 `;
 const SidebarWraper = styled.div`
   width: 25%;
-  border-right: 4px solid #e94560;
-  padding: 2% 20px 0 20px;
+  border-right: 4px solid #f55353;
+  padding: 0 15px;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   p {
     margin: 5px 0 10px;
   }
@@ -29,7 +33,7 @@ const CountWrapper = styled.div`
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
-    background: #e94560;
+    background: #f55353;
     color: white;
     :disabled {
       cursor: not-allowed;
@@ -63,6 +67,29 @@ const PropertyWrapper = styled.div`
   }
   .items {
     padding: 2px 8px;
+    span {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 20px;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      li {
+        padding: 5px 10px;
+        display: flex;
+        label {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          input {
+            margin-top: 2px;
+          }
+        }
+      }
+    }
   }
 `;
 const BoxWraper = styled.div`
@@ -70,7 +97,6 @@ const BoxWraper = styled.div`
 `;
 
 const Home: NextPage = () => {
-  console.log('data', data);
   const [val, setVal] = useState(1);
   return (
     <HomeWrapper>
@@ -100,6 +126,7 @@ const Home: NextPage = () => {
                     <label>
                       <input
                         type="radio"
+                        defaultChecked={index === 0}
                         id={itm}
                         name={`${item.title.replace(' ', '')}`}
                         value={itm}
