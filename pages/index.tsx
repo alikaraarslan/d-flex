@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import { data } from '../assets/data.js';
 import styled from 'styled-components';
-import { useState } from 'react';
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -94,54 +94,122 @@ const PropertyWrapper = styled.div`
 `;
 const BoxWraper = styled.div`
   width: 75%;
+  padding: 15px;
+  display: flex;
+  gap: 4px;
+  .box-item {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    background: #f55353;
+    border: 4px solid #06113c;
+    color: #06113c;
+    font-weight: 600;
+  }
 `;
 
 const Home: NextPage = () => {
-  const [val, setVal] = useState(1);
+  const [divCount, setDivCount] = useState(4);
+  const [initialVal, setInitivalVal] = useState({});
+  useEffect(() => {
+    const a = data.map((m) => ({
+      value: m.value,
+      item: m.items[0],
+    }));
+    setInitivalVal(a);
+  }, []);
+
+  const divList = () => {
+    const rowList = [];
+    for (let i = 0; i < divCount; i++) {
+      rowList.push(
+        <div className="box-item" key={i + 1}>
+          {i + 1}
+        </div>
+      );
+    }
+    return rowList;
+  };
+
   return (
-    <HomeWrapper>
-      <SidebarWraper>
-        <h3>CSS FLEXBOX HELPER</h3>
-        <p>You can learn how to use the flex system.</p>
-        <CountWrapper>
-          <button
-            onClick={() => setVal(val - 1)}
-            disabled={val === 1}
-            className="btn btn-minus"
-          >
-            -
-          </button>
-          <div className="val">{val}</div>
-          <button onClick={() => setVal(val + 1)} className="btn btn-plus">
-            +
-          </button>
-        </CountWrapper>
-        <PropertyWrapper>
-          {data.map((item, index) => (
-            <div key={index} className="items">
-              <span>{item.title}</span>
-              <ul>
-                {item.items.map((itm, index) => (
-                  <li key={index}>
-                    <label>
-                      <input
-                        type="radio"
-                        defaultChecked={index === 0}
-                        id={itm}
-                        name={`${item.title.replace(' ', '')}`}
-                        value={itm}
-                      />
-                      {itm}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </PropertyWrapper>
-      </SidebarWraper>
-      <BoxWraper>Box</BoxWraper>
-    </HomeWrapper>
+    <>
+      <HomeWrapper>
+        <SidebarWraper>
+          <h3>CSS FLEXBOX HELPER</h3>
+          <p>You can learn how to use the flex system.</p>
+          <CountWrapper>
+            <button
+              onClick={() => setDivCount(divCount - 1)}
+              disabled={divCount === 1}
+              className="btn btn-minus"
+            >
+              -
+            </button>
+            <div className="val">{divCount}</div>
+            <button
+              onClick={() => setDivCount(divCount + 1)}
+              className="btn btn-plus"
+            >
+              +
+            </button>
+          </CountWrapper>
+          <PropertyWrapper>
+            {data.map((item, index) => (
+              <div key={index} className="items">
+                <span>{item.title}</span>
+                <ul>
+                  {item.items.map((itm, index) => (
+                    <li key={index}>
+                      <label>
+                        <input
+                          type="radio"
+                          defaultChecked={index === 0}
+                          id={itm}
+                          name={`${item.title.replace(' ', '')}`}
+                          value={itm}
+                          onChange={(e) => {
+                            const selectedItem = data.filter(
+                              (f) => f.value === item.value
+                            )[0];
+                            if (Array.isArray(initialVal)) {
+                              setInitivalVal(
+                                initialVal.map((m) => {
+                                  if (m.value === item.value) {
+                                    return {
+                                      value: m.value,
+                                      item: e.target.checked ? itm : '',
+                                    };
+                                  }
+                                  return m;
+                                })
+                              );
+                            }
+                            console.log('-->', selectedItem);
+                          }}
+                        />
+                        {itm}
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </PropertyWrapper>
+        </SidebarWraper>
+        <BoxWraper>
+          <>
+            {divList()}
+            <pre>
+              Result <br />
+              {JSON.stringify(initialVal, null, 2)}
+            </pre>
+          </>
+        </BoxWraper>
+      </HomeWrapper>
+    </>
   );
 };
 
