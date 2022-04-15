@@ -1,6 +1,7 @@
 export const data = [
   {
     title: 'Justify Content',
+    value: 'justifyContent',
     items: [
       'flex-start',
       'flex-end',
@@ -12,10 +13,12 @@ export const data = [
   },
   {
     title: 'Align Items',
+    value: 'alignItems',
     items: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
   },
   {
     title: 'Align Content',
+    value: 'alignContent',
     items: [
       'flex-start',
       'flex-end',
@@ -26,10 +29,12 @@ export const data = [
   },
   {
     title: 'Flex Direction',
+    value: 'flexDirection',
     items: ['row', 'row-reverse', 'column', 'column-reverse'],
   },
   {
     title: 'Flex Wrap',
+    value: 'flexWrap',
     items: ['nowrap', 'wrap', 'wrap-reverse'],
   },
 ];
