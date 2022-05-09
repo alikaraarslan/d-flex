@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { data } from '../assets/data.js';
 import styled from 'styled-components';
 
@@ -114,6 +114,7 @@ const BoxWraper = styled.div`
 const Home: NextPage = () => {
   const [divCount, setDivCount] = useState(4);
   const [initialVal, setInitivalVal] = useState({});
+  const containerRef = useRef<any>(null);
   useEffect(() => {
     const a = data.map((m) => ({
       value: m.value,
@@ -134,15 +135,14 @@ const Home: NextPage = () => {
     return rowList;
   };
 
-  const handleContainStyle = () => {
-    let startArr: any = [];
-    (Array.isArray(initialVal) ? initialVal : [initialVal]).forEach((item) =>
-      startArr.push({ [item.value]: item.item })
-    );
-    return startArr;
-  };
+  useEffect(() => {
+    if (Array.isArray(initialVal) && containerRef?.current) {
+      initialVal.forEach((m) => {
+        containerRef.current.style[m.value] = m.item;
+      });
+    }
+  }, [initialVal]);
 
-  console.log('handleContainStyle', handleContainStyle());
   return (
     <>
       <HomeWrapper>
@@ -208,15 +208,7 @@ const Home: NextPage = () => {
             ))}
           </PropertyWrapper>
         </SidebarWraper>
-        <BoxWraper>
-          <>
-            {divList()}
-            <pre>
-              Result <br />
-              {JSON.stringify(initialVal, null, 2)}
-            </pre>
-          </>
-        </BoxWraper>
+        <BoxWraper ref={containerRef}>{divList()}</BoxWraper>
       </HomeWrapper>
     </>
   );

@@ -17,17 +17,6 @@ export const data = [
     items: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
   },
   {
-    title: 'Align Content',
-    value: 'alignContent',
-    items: [
-      'flex-start',
-      'flex-end',
-      'center',
-      'space-between',
-      'space-around',
-    ],
-  },
-  {
     title: 'Flex Direction',
     value: 'flexDirection',
     items: ['row', 'row-reverse', 'column', 'column-reverse'],
