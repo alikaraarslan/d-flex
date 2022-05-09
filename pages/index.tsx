@@ -134,6 +134,15 @@ const Home: NextPage = () => {
     return rowList;
   };
 
+  const handleContainStyle = () => {
+    let startArr: any = [];
+    (Array.isArray(initialVal) ? initialVal : [initialVal]).forEach((item) =>
+      startArr.push({ [item.value]: item.item })
+    );
+    return startArr;
+  };
+
+  console.log('handleContainStyle', handleContainStyle());
   return (
     <>
       <HomeWrapper>
