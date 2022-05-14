@@ -1,9 +1,11 @@
+// @ts-nocheck
 import type { NextPage } from 'next';
 import { useEffect, useState, useRef } from 'react';
 import { data } from '../assets/data.js';
 import styled from 'styled-components';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
+import { CopyBlock, dracula } from 'react-code-blocks';
 
 import Icon from '../components/Icon';
 
@@ -18,6 +20,7 @@ const SidebarWraper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   p {
     margin: 5px 0 10px;
   }
@@ -121,6 +124,7 @@ const BoxWraper = styled.div`
 const Home: NextPage = () => {
   const [divCount, setDivCount] = useState(4);
   const [initialVal, setInitivalVal] = useState({});
+  const [result, setResult] = useState({});
   const containerRef = useRef<any>(null);
   useEffect(() => {
     const a = data.map((m) => ({
@@ -129,7 +133,6 @@ const Home: NextPage = () => {
     }));
     setInitivalVal(a);
   }, []);
-
   const divList = () => {
     const rowList = [];
     for (let i = 0; i < divCount; i++) {
@@ -147,94 +150,125 @@ const Home: NextPage = () => {
       initialVal.forEach((m) => {
         containerRef.current.style[m.value] = m.item;
       });
+      setResult(
+        initialVal.reduce((acc, cur) => {
+          acc[cur.value] = cur.item;
+          return acc;
+        }, {})
+      );
     }
   }, [initialVal]);
+
+  const resultCss = Object.keys(result).reduce((acc, cur) => {
+    acc += `${cur}: ${result[cur]};\n`;
+    return acc;
+  }, '');
+
+  const toKebabCase = (str) => {
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+  };
 
   return (
     <>
       <HomeWrapper>
         <SidebarWraper>
-          <h3>CSS FLEXBOX HELPER</h3>
-          <p>You can learn how to use the flex system.</p>
-          <CountWrapper>
-            <button
-              onClick={() => setDivCount(divCount - 1)}
-              disabled={divCount === 1}
-              className="btn btn-minus"
-            >
-              -
-            </button>
-            <div className="val">{divCount}</div>
-            <button
-              onClick={() => setDivCount(divCount + 1)}
-              className="btn btn-plus"
-            >
-              +
-            </button>
-          </CountWrapper>
-          <PropertyWrapper>
-            {data.map((item, index) => (
-              <div key={index} className="items">
-                <span>
-                  {item.title}
-                  <Tooltip
-                    placement="top"
-                    overlay={
-                      <span
-                        style={{
-                          maxWidth: '200px',
-                          display: 'block',
-                          textAlign: 'center',
-                          fontSize: '14px',
-                        }}
-                      >
-                        {item.description}
-                      </span>
-                    }
-                  >
-                    <a>
-                      <Icon name="question" />
-                    </a>
-                  </Tooltip>
-                </span>
-                <ul>
-                  {item.items.map((itm, index) => (
-                    <li key={index}>
-                      <label>
-                        <input
-                          type="radio"
-                          defaultChecked={index === 0}
-                          id={itm}
-                          name={`${item.title.replace(' ', '')}`}
-                          value={itm}
-                          onChange={(e) => {
-                            const selectedItem = data.filter(
-                              (f) => f.value === item.value
-                            )[0];
-                            if (Array.isArray(initialVal)) {
-                              setInitivalVal(
-                                initialVal.map((m) => {
-                                  if (m.value === item.value) {
-                                    return {
-                                      value: m.value,
-                                      item: e.target.checked ? itm : '',
-                                    };
-                                  }
-                                  return m;
-                                })
-                              );
-                            }
-                            console.log('-->', selectedItem);
+          <div>
+            <h3>CSS FLEXBOX HELPER</h3>
+            <p>You can learn how to use the flex system.</p>
+            <CountWrapper>
+              <button
+                onClick={() => setDivCount(divCount - 1)}
+                disabled={divCount === 1}
+                className="btn btn-minus"
+              >
+                -
+              </button>
+              <div className="val">{divCount}</div>
+              <button
+                onClick={() => setDivCount(divCount + 1)}
+                className="btn btn-plus"
+              >
+                +
+              </button>
+            </CountWrapper>
+            <PropertyWrapper>
+              {data.map((item, index) => (
+                <div key={index} className="items">
+                  <span>
+                    {item.title}
+                    <Tooltip
+                      placement="top"
+                      overlay={
+                        <span
+                          style={{
+                            maxWidth: '200px',
+                            display: 'block',
+                            textAlign: 'center',
+                            fontSize: '14px',
                           }}
-                        />
-                        {itm}
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </PropertyWrapper>
+                        >
+                          {item.description}
+                        </span>
+                      }
+                    >
+                      <a style={{ cursor: 'pointer' }}>
+                        <Icon name="question" />
+                      </a>
+                    </Tooltip>
+                  </span>
+                  <ul>
+                    {item.items.map((itm, index) => (
+                      <li key={index}>
+                        <label>
+                          <input
+                            type="radio"
+                            defaultChecked={index === 0}
+                            id={itm}
+                            name={`${item.title.replace(' ', '')}`}
+                            value={itm}
+                            onChange={(e) => {
+                              const selectedItem = data.filter(
+                                (f) => f.value === item.value
+                              )[0];
+                              if (Array.isArray(initialVal)) {
+                                setInitivalVal(
+                                  initialVal.map((m) => {
+                                    if (m.value === item.value) {
+                                      return {
+                                        value: m.value,
+                                        item: e.target.checked ? itm : '',
+                                      };
+                                    }
+                                    return m;
+                                  })
+                                );
+                              }
+                            }}
+                          />
+                          {itm}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </PropertyWrapper>
+          </div>
+          <div>
+            <div>
+              <CopyBlock
+                text={toKebabCase(resultCss)}
+                language={'css'}
+                showLineNumbers={false}
+                theme={dracula}
+                customStyle={{
+                  boxShadow: '1px 2px 3px rgba(0,0,0,0.35)',
+                  textAlign: 'left',
+                  padding: '12px',
+                }}
+              />
+            </div>
+          </div>
         </SidebarWraper>
         <BoxWraper ref={containerRef}>{divList()}</BoxWraper>
       </HomeWrapper>
