@@ -2,6 +2,8 @@ import type { NextPage } from 'next';
 import { useEffect, useState, useRef } from 'react';
 import { data } from '../assets/data.js';
 import styled from 'styled-components';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap.css';
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -168,7 +170,14 @@ const Home: NextPage = () => {
           <PropertyWrapper>
             {data.map((item, index) => (
               <div key={index} className="items">
-                <span>{item.title}</span>
+                <span>
+                  <Tooltip
+                    placement="top"
+                    overlay={<span>{item.title} Description Box</span>}
+                  >
+                    <a>{item.title}</a>
+                  </Tooltip>
+                </span>
                 <ul>
                   {item.items.map((itm, index) => (
                     <li key={index}>
