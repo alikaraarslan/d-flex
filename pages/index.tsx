@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 
+import Icon from '../components/Icon';
+
 const HomeWrapper = styled.div`
   display: flex;
   height: 100vh;
@@ -12,10 +14,8 @@ const HomeWrapper = styled.div`
 const SidebarWraper = styled.div`
   width: 25%;
   border-right: 4px solid #f55353;
-  padding: 0 15px;
+  padding: 15px 15px;
   text-align: center;
-  justify-content: center;
-  align-items: center;
   display: flex;
   flex-direction: column;
   p {
@@ -70,10 +70,15 @@ const PropertyWrapper = styled.div`
   .items {
     padding: 2px 8px;
     span {
-      display: block;
+      display: flex;
       font-size: 16px;
       font-weight: 700;
       margin-top: 20px;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      gap: 5px;
+      line-height: 0;
     }
     ul {
       display: flex;
@@ -171,11 +176,25 @@ const Home: NextPage = () => {
             {data.map((item, index) => (
               <div key={index} className="items">
                 <span>
+                  {item.title}
                   <Tooltip
                     placement="top"
-                    overlay={<span>{item.title} Description Box</span>}
+                    overlay={
+                      <span
+                        style={{
+                          maxWidth: '200px',
+                          display: 'block',
+                          textAlign: 'center',
+                          fontSize: '14px',
+                        }}
+                      >
+                        {item.description}
+                      </span>
+                    }
                   >
-                    <a>{item.title}</a>
+                    <a>
+                      <Icon name="question" />
+                    </a>
                   </Tooltip>
                 </span>
                 <ul>
