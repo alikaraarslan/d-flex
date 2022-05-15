@@ -3,9 +3,9 @@ export const data = [
     title: 'Justify Content',
     value: 'justifyContent',
     items: [
+      'center',
       'flex-start',
       'flex-end',
-      'center',
       'space-between',
       'space-around',
       'space-evenly',
@@ -16,7 +16,7 @@ export const data = [
   {
     title: 'Align Items',
     value: 'alignItems',
-    items: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
+    items: ['center', 'flex-start', 'flex-end', 'baseline', 'stretch'],
     description:
       'The align-items CSS property defines how flex items are aligned in the flex container when the main-axis (the axis along which the flex items are laid out) is the y-axis.',
   },

@@ -5,7 +5,7 @@ import { data } from '../assets/data.js';
 import styled from 'styled-components';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
-import { CopyBlock, dracula } from 'react-code-blocks';
+import { CopyBlock, vs2015 } from 'react-code-blocks';
 
 import Icon from '../components/Icon';
 
@@ -15,7 +15,7 @@ const HomeWrapper = styled.div`
 `;
 const SidebarWraper = styled.div`
   width: 25%;
-  border-right: 4px solid #f55353;
+  border-right: 4px solid #f5cb5c;
   padding: 15px 15px;
   text-align: center;
   display: flex;
@@ -38,8 +38,8 @@ const CountWrapper = styled.div`
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
-    background: #f55353;
-    color: white;
+    background: #f5cb5c;
+    color: #06113c;
     :disabled {
       cursor: not-allowed;
       opacity: 0.5;
@@ -114,7 +114,7 @@ const BoxWraper = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 28px;
-    background: #f55353;
+    background: #f5cb5c;
     border: 4px solid #06113c;
     color: #06113c;
     font-weight: 600;
@@ -159,10 +159,11 @@ const Home: NextPage = () => {
     }
   }, [initialVal]);
 
-  const resultCss = Object.keys(result).reduce((acc, cur) => {
+  let resultCss = Object.keys(result).reduce((acc, cur) => {
     acc += `${cur}: ${result[cur]};\n`;
     return acc;
   }, '');
+  resultCss = 'display: flex;\n' + resultCss;
 
   const toKebabCase = (str) => {
     return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -260,11 +261,12 @@ const Home: NextPage = () => {
                 text={toKebabCase(resultCss)}
                 language={'css'}
                 showLineNumbers={false}
-                theme={dracula}
+                theme={vs2015}
                 customStyle={{
                   boxShadow: '1px 2px 3px rgba(0,0,0,0.35)',
                   textAlign: 'left',
                   padding: '12px',
+                  display: 'flex',
                 }}
               />
             </div>
