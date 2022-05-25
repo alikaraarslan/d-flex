@@ -8,6 +8,7 @@ import 'rc-tooltip/assets/bootstrap.css';
 import { CopyBlock, vs2015 } from 'react-code-blocks';
 
 import Icon from '../components/Icon';
+import Link from 'next/link';
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -23,6 +24,20 @@ const SidebarWraper = styled.div`
   justify-content: space-between;
   p {
     margin: 5px 0 10px;
+  }
+`;
+
+const ProjectInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  gap: 15px;
+  a {
+    svg {
+      width: 24px;
+      height: auto;
+    }
   }
 `;
 const CountWrapper = styled.div`
@@ -270,6 +285,20 @@ const Home: NextPage = () => {
                 }}
               />
             </div>
+            <ProjectInfoWrapper>
+              <Link href={'https://github.com/alikaraarslan/d-flex'}>
+                <a target="_blank" title="Github Repository">
+                  <Icon name="github" />
+                </a>
+              </Link>
+              <Link
+                href={'https://www.linkedin.com/in/ali-karaarslan-392416127/'}
+              >
+                <a target="_blank" title="Code Owner">
+                  <Icon name="linkedin" />
+                </a>
+              </Link>
+            </ProjectInfoWrapper>
           </div>
         </SidebarWraper>
         <BoxWraper ref={containerRef}>{divList()}</BoxWraper>
