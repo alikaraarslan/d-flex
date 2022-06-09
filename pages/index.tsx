@@ -7,12 +7,17 @@ import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import { CopyBlock, vs2015 } from 'react-code-blocks';
 
+import isMobile from '../utils/isMobile';
+
 import Icon from '../components/Icon';
 import Link from 'next/link';
 
 const HomeWrapper = styled.div`
   display: flex;
   height: 100vh;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const SidebarWraper = styled.div`
   width: 25%;
@@ -24,6 +29,11 @@ const SidebarWraper = styled.div`
   justify-content: space-between;
   p {
     margin: 5px 0 10px;
+  }
+  @media (max-width: 768px) {
+    order: 2;
+    width: 100%;
+    border: none;
   }
 `;
 
@@ -122,6 +132,10 @@ const BoxWraper = styled.div`
   padding: 15px;
   display: flex;
   gap: 4px;
+  @media (max-width: 768px) {
+    width: 100%;
+    min-height: 240px;
+  }
   .box-item {
     width: 150px;
     height: 150px;
@@ -183,6 +197,12 @@ const Home: NextPage = () => {
   const toKebabCase = (str) => {
     return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
   };
+
+  useEffect(() => {
+    if (isMobile.any()) {
+      setDivCount(2);
+    }
+  }, []);
 
   return (
     <>
