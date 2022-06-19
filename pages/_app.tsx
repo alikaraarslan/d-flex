@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: any) {
 
     setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 750);
   }, []);
   return (
     <StyledThemeProvider>

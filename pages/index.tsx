@@ -7,6 +7,7 @@ import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import { CopyBlock, vs2015 } from 'react-code-blocks';
 
+import bg from '../assets/bg.jpg';
 import isMobile from '../utils/isMobile';
 
 import Icon from '../components/Icon';
@@ -63,8 +64,8 @@ const CountWrapper = styled.div`
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
-    background: #f5cb5c;
-    color: #06113c;
+    background: #222a30;
+    color: #ffffff;
     :disabled {
       cursor: not-allowed;
       opacity: 0.5;
@@ -143,9 +144,9 @@ const BoxWraper = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 28px;
-    background: #f5cb5c;
-    border: 4px solid #06113c;
-    color: #06113c;
+    background: #95a3b6;
+    border: 4px solid #222a30;
+    color: #222a30;
     font-weight: 600;
   }
 `;
@@ -206,7 +207,13 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <HomeWrapper>
+      <HomeWrapper
+        style={{
+          background: `url(${bg.src})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center left',
+        }}
+      >
         <SidebarWraper>
           <div>
             <h3>CSS FLEXBOX HELPER</h3>

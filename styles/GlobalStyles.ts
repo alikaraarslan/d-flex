@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle(({ theme }) => ({
     boxSizing: 'border-box',
   },
   body: {
-    backgroundColor: theme.colors.bg,
     fontFamily: theme.fontFamily.body,
     color: theme.colors.textPrimary,
     height: '100%',
