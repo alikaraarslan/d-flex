@@ -22,7 +22,7 @@ const HomeWrapper = styled.div`
 `;
 const SidebarWraper = styled.div`
   width: 25%;
-  border-right: 4px solid #f5cb5c;
+  border-right: 4px solid #95a3b6;
   padding: 15px 15px;
   text-align: center;
   display: flex;
@@ -130,9 +130,9 @@ const PropertyWrapper = styled.div`
 `;
 const BoxWraper = styled.div`
   width: 75%;
-  padding: 15px;
   display: flex;
-  gap: 4px;
+  justify-content: center;
+  align-items: center;
   @media (max-width: 768px) {
     width: 100%;
     min-height: 240px;
@@ -148,7 +148,18 @@ const BoxWraper = styled.div`
     border: 4px solid #222a30;
     color: #222a30;
     font-weight: 600;
+    border-radius: 10px;
   }
+`;
+
+const SubWrapper = styled.div`
+  display: flex;
+  gap: 4px;
+  height: 80%;
+  width: 80%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.25);
 `;
 
 const Home: NextPage = () => {
@@ -328,7 +339,9 @@ const Home: NextPage = () => {
             </ProjectInfoWrapper>
           </div>
         </SidebarWraper>
-        <BoxWraper ref={containerRef}>{divList()}</BoxWraper>
+        <BoxWraper>
+          <SubWrapper ref={containerRef}>{divList()}</SubWrapper>
+        </BoxWraper>
       </HomeWrapper>
     </>
   );
