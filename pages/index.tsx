@@ -17,6 +17,7 @@ const HomeWrapper = styled.div`
   display: flex;
   height: 100vh;
   @media (max-width: 768px) {
+    height: auto;
     flex-direction: column;
   }
 `;
@@ -28,6 +29,19 @@ const SidebarWraper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #3e3e3e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   p {
     margin: 5px 0 10px;
   }
@@ -160,6 +174,10 @@ const SubWrapper = styled.div`
   border-radius: 10px;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.25);
+  @media (max-width: 768px) {
+    gap: 8px;
+    padding: 12px;
+  }
 `;
 
 const Home: NextPage = () => {
